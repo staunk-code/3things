@@ -217,28 +217,24 @@ class DailyThree {
       </div>
     `;
 
-    // Empty slot placeholders for future/today (visual hint)
+    // Empty slot placeholders for future/today — click any slot to add a task
     if (!isPast) {
       const slotsLeft = 3 - tasks.length;
       const slotWrap = document.createElement('div');
       slotWrap.className = 'slot-placeholders';
-      // slots shown as dashed outlines
       for (let s = 0; s < slotsLeft; s++) {
         const slot = document.createElement('div');
         slot.className = 'slot-empty';
+        slot.setAttribute('role', 'button');
+        slot.setAttribute('tabindex', '0');
+        slot.setAttribute('aria-label', 'Add task');
+        slot.onclick = () => this._showInput(date, col);
+        slot.onkeydown = e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this._showInput(date, col); }
+        };
         slotWrap.appendChild(slot);
       }
       col.appendChild(slotWrap);
-    }
-
-    // Add task button
-    if (canAdd) {
-      const addBtn = document.createElement('button');
-      addBtn.className = 'add-btn';
-      addBtn.dataset.date = date;
-      addBtn.textContent = '+ Add task';
-      addBtn.onclick = () => this._showInput(date, col);
-      col.appendChild(addBtn);
     }
 
     // Bind task events
@@ -272,8 +268,8 @@ class DailyThree {
   }
 
   _showInput(date, col) {
-    const addBtn = col.querySelector('.add-btn');
-    if (!addBtn) return;
+    const slotWrap = col.querySelector('.slot-placeholders');
+    if (!slotWrap) return;
 
     const wrap = document.createElement('div');
     wrap.className = 'input-wrap';
@@ -281,7 +277,7 @@ class DailyThree {
       <input class="task-input" type="text" placeholder="What needs to be done?" maxlength="80">
       <span class="input-hints">Enter to save · Esc to cancel</span>
     `;
-    addBtn.replaceWith(wrap);
+    slotWrap.replaceWith(wrap);
 
     const input = wrap.querySelector('input');
     input.focus();

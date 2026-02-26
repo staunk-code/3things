@@ -369,26 +369,6 @@ header {
   color: var(--danger);
 }
 
-/* ── Add task button ── */
-.add-btn {
-  width: 100%;
-  padding: 8px;
-  border: 1.5px dashed var(--border);
-  border-radius: var(--radius-sm);
-  background: none;
-  color: var(--text-muted);
-  font-size: 0.78rem;
-  cursor: pointer;
-  transition: all 0.15s;
-  margin-top: 2px;
-}
-
-.add-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: var(--primary-light);
-}
-
 /* ── Task input ── */
 .input-wrap {
   display: flex;
@@ -415,12 +395,35 @@ header {
   text-align: right;
 }
 
-/* ── Slot indicators (empty future slots) ── */
+/* ── Slot indicators (empty future slots — click to add a task) ── */
 .slot-empty {
   height: 36px;
   border-radius: var(--radius-sm);
   border: 1.5px dashed #ece9ff;
   background: #faf9ff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.slot-empty::after {
+  content: '+ Add task';
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.slot-empty:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.slot-empty:hover::after {
+  color: var(--primary);
+  opacity: 1;
 }
 
 /* ── Footer ── */
