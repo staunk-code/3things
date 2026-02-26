@@ -286,7 +286,11 @@ class DailyThree {
     const input = wrap.querySelector('input');
     input.focus();
 
+    let submitted = false;
+
     const submit = () => {
+      if (submitted) return;
+      submitted = true;
       const text = input.value.trim();
       if (text) { this.addTask(date, text); }
       this.render();
@@ -297,7 +301,9 @@ class DailyThree {
       else if (e.key === 'Escape') this.render();
     };
 
-    // Blur: submit after tiny delay so click on another element works
+    // Blur: submit after tiny delay so click on another element works.
+    // The `submitted` guard prevents double-add when Enter already fired
+    // (Enter → render() detaches the input → blur fires → second submit).
     input.onblur = () => setTimeout(submit, 180);
   }
 
