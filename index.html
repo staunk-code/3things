@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily 3 — Weekly Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="header-content">
+        <div class="brand">
+          <h1>Daily <span class="accent">3</span></h1>
+          <p class="tagline">Three tasks. Every day. All week.</p>
+        </div>
+        <nav class="week-nav">
+          <button id="prev-week" class="nav-btn" title="Previous week">&#8592;</button>
+          <span id="week-label"></span>
+          <button id="next-week" class="nav-btn" title="Next week">&#8594;</button>
+          <button id="today-btn" class="today-btn">Today</button>
+        </nav>
+      </div>
+      <div id="week-stats" class="week-stats"></div>
+    </header>
+
+    <main>
+      <div id="week-grid" class="week-grid"></div>
+    </main>
+
+    <footer>
+      <p>Tasks not completed roll over to the next day &nbsp;↩</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
